@@ -40,3 +40,23 @@ class NeuralNetwork(nn.Module):
 # 3. 모델 인스턴스 생성 및 장치로 이동
 model = NeuralNetwork().to(device)
 print(model)
+
+# 임의의 28x28 이미지를 하나 생성해서 모델에 통과
+X = torch.rand(1, 28, 28, device=device)
+logits = model(X)  # 원시 예측값(logits) 반환
+# 델에 진짜 데이터(`X`)를 넣으면 `forward` 함수가 자동으로 실행되고, 
+# 최종 결과가 나와. 이 `logits`는 아직 정제되지 않은 ‘날것의 점수’야.
+print("Logits:", logits)
+
+# 소프트맥스(확률)로 변환
+pred_probab = nn.Softmax(dim=1)(logits)
+# 이 날것의 점수들을 합이 1이 되는 ‘확률’로 바꿔주는 마법사야. 
+# 예를 들어 `-0.5, 2.0, 0.1` 같은 점수를 `0.05, 0.88, 0.07` 같은 
+# 확률로 바꿔줘. “아, 두 번째 클래스일 확률이 88%로 제일 높구나!“라고 해석할 수 있게 되는 거지.
+print("Predicted probabilities:", pred_probab)
+
+# 예측된 클래스(가장 확률이 높은 인덱스)
+y_pred = pred_probab.argmax(1)
+# 이 확률들 중에서 가장 높은 값의 인덱스(위치)를 찾아줘. 
+# “가장 확률이 높은 건 2번째 클래스야!“라고 최종 결론을 내리는 거지.
+print(f"Predicted class: {y_pred}")
