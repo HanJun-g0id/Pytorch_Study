@@ -60,3 +60,21 @@ y_pred = pred_probab.argmax(1)
 # 이 확률들 중에서 가장 높은 값의 인덱스(위치)를 찾아줘. 
 # “가장 확률이 높은 건 2번째 클래스야!“라고 최종 결론을 내리는 거지.
 print(f"Predicted class: {y_pred}")
+
+# 3개의 28x28 이미지를 임의로 생성
+input_image = torch.rand(3, 28, 28)
+print("Input shape:", input_image.shape)  # torch.Size([3, 28, 28])
+
+# Flatten 계층: [3, 28, 28] → [3, 784]
+flatten = nn.Flatten()
+flat_image = flatten(input_image)
+print("After flatten:", flat_image.shape)  # torch.Size([3, 784])
+
+# Linear 계층: [3, 784] → [3, 20]
+layer1 = nn.Linear(28*28, 20)
+hidden1 = layer1(flat_image)
+print("After Linear:", hidden1.shape)      # torch.Size([3, 20])
+
+# ReLU 활성화: 음수는 0으로, 양수는 그대로
+hidden1_relu = nn.ReLU()(hidden1)
+print("After ReLU:", hidden1_relu)
