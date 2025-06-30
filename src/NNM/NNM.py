@@ -78,3 +78,14 @@ print("After Linear:", hidden1.shape)      # torch.Size([3, 20])
 # ReLU 활성화: 음수는 0으로, 양수는 그대로
 hidden1_relu = nn.ReLU()(hidden1)
 print("After ReLU:", hidden1_relu)
+
+# Sequential로 계층 묶기
+seq_modules = nn.Sequential(
+    flatten,
+    layer1,
+    nn.ReLU(),
+    nn.Linear(20, 10)
+)
+input_image = torch.rand(3, 28, 28)
+logits = seq_modules(input_image)
+print("Logits shape:", logits.shape)  # torch.Size([3, 10])
