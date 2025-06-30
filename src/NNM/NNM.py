@@ -89,3 +89,12 @@ seq_modules = nn.Sequential(
 input_image = torch.rand(3, 28, 28)
 logits = seq_modules(input_image)
 print("Logits shape:", logits.shape)  # torch.Size([3, 10])
+
+# 모델의 파라미터 확인하기
+print(f"Model structure: {model}\n")
+for name, param in model.named_parameters():
+		# 모델아, 네가 학습해야 할 모든 파라미터(가중치, 편향) 목록 좀 보여줘!
+		# 이걸 통해 우리는 각 `Linear` 계층에 어떤 크기의 가중치(`weight`)와 
+		# 편향(`bias`) 텐서가 있는지 직접 눈으로 확인할 수 있어. 
+		# 이 파라미터들이 바로 딥러닝 학습 과정에서 계속해서 업데이트되는 주인공들이야.
+    print(f"Layer: {name} | Size: {param.size()} | Values: {param[:2]}\n")
