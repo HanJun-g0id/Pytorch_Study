@@ -17,3 +17,6 @@ test_data = datasets.FashionMNIST(
     download=True,        # 없으면 자동 다운로드
     transform=ToTensor()  # 이미지를 텐서로 변환
 )
+
+train_dataloader = DataLoader(training_data, batch_size=64)
+test_dataloader = DataLoader(test_data, batch_size=64)
