@@ -47,3 +47,24 @@ epochs = 10           # 에폭 수: 전체 데이터셋을 몇 번 반복할지
 loss_fn = nn.CrossEntropyLoss()  # 다중 분류용 손실 함수
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)  # SGD 옵티마이저
 
+def train_loop(dataloader, model, loss_fn, optimizer):
+# 이 함수는 한 에폭 동안 진행되는 ‘빡공 타임’이야.
+    size = len(dataloader.dataset)
+    model.train()  # 학습 모드 (Dropout, BatchNorm 등 활성화)
+    for batch, (X, y) in enumerate(dataloader):
+        # 1. 예측 및 손실 계산
+        pred = model(X)
+        loss = loss_fn(pred, y)
+
+        # 2. 역전파 (gradient 계산)
+        loss.backward()
+        # 3. 파라미터 업데이트
+        optimizer.step()
+        # 4. 변화도 초기화 (누적 방지)
+        optimizer.zero_grad()
+
+        if batch % 100 == 0:
+            loss_val = loss.item()
+            current = batch * batch_size + len(X)
+            print(f"loss: {loss_val:>7f}  [{current:>5d}/{size:>5d}]")
+
