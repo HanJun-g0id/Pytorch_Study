@@ -68,3 +68,19 @@ def train_loop(dataloader, model, loss_fn, optimizer):
             current = batch * batch_size + len(X)
             print(f"loss: {loss_val:>7f}  [{current:>5d}/{size:>5d}]")
 
+def test_loop(dataloader, model, loss_fn):
+    model.eval()  # 평가 모드 (Dropout, BatchNorm 등 비활성화)
+    size = len(dataloader.dataset)
+    num_batches = len(dataloader)
+    test_loss, correct = 0, 0
+
+    with torch.no_grad():  # 추론 시에는 변화도 계산 X (속도↑, 메모리↓)
+        for X, y in dataloader:
+            pred = model(X)
+            test_loss += loss_fn(pred, y).item()
+            correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+
+    test_loss /= num_batches
+    correct /= size
+    print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
+
