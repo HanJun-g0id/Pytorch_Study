@@ -37,3 +37,4 @@ class NeuralNetwork(nn.Module):
         x = self.flatten(x)                  # 이미지를 1차원 벡터로 변환
         logits = self.linear_relu_stack(x)   # 계층을 순서대로 통과
         return logits                        # 원시 예측값 반환
+model = NeuralNetwork()
