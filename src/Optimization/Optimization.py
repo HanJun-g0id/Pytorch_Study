@@ -37,4 +37,11 @@ class NeuralNetwork(nn.Module):
         x = self.flatten(x)                  # 이미지를 1차원 벡터로 변환
         logits = self.linear_relu_stack(x)   # 계층을 순서대로 통과
         return logits                        # 원시 예측값 반환
+        
 model = NeuralNetwork()
+
+learning_rate = 1e-3  # 학습률: 파라미터를 얼마나 크게 조정할지
+batch_size = 64       # 배치 크기: 한 번에 학습에 사용할 데이터 수
+epochs = 10           # 에폭 수: 전체 데이터셋을 몇 번 반복할지
+
+
