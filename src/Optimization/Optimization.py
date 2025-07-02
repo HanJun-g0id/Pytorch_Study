@@ -44,4 +44,6 @@ learning_rate = 1e-3  # 학습률: 파라미터를 얼마나 크게 조정할지
 batch_size = 64       # 배치 크기: 한 번에 학습에 사용할 데이터 수
 epochs = 10           # 에폭 수: 전체 데이터셋을 몇 번 반복할지
 
+loss_fn = nn.CrossEntropyLoss()  # 다중 분류용 손실 함수
+optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)  # SGD 옵티마이저
 
