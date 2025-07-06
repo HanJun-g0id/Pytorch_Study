@@ -31,4 +31,4 @@ w.grad.zero_()   # 수동으로 초기화 필요
 out.backward(torch.ones_like(out))  # vᵀ ⋅ J 계산
 # `torch.ones_like(out)`은
 # `out`과 똑같은 모양이면서 모든 값이 1인 텐서 제작 
-# 이걸 ’질문 벡터 `v`’로 사용
+# 이걸 ’질문 벡터 v’로 사용
