@@ -13,6 +13,7 @@ class NeuralNetwork(nn.Module):
     def __init__(self):
         super().__init__()  # 부모 클래스 초기화
         self.flatten = nn.Flatten()  # 2D 이미지를 1D 벡터로 펼침
+        
         self.linear_relu_stack = nn.Sequential(  # 여러 계층을 순서대로 쌓음
             nn.Linear(28*28, 512),  # 입력: 28*28=784, 출력: 512
             nn.ReLU(),              # 활성화 함수 ReLU
